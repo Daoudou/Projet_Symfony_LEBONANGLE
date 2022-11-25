@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\AdminUser;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +16,8 @@ class AdminUserFormType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
-            ->add('plainpassword')
+            ->add('plainpassword',PasswordType::class)
+            ->add('submit',SubmitType::class)
         ;
     }
 

@@ -25,6 +25,7 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length:255)]
     private ?string $plainpassword = null;
 
+    #[ORM\Column(length:255)]
     private ?string $password = null;
 
     /**
@@ -76,6 +77,13 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // TODO: Implement getPassword() method.
         return $this->password;
+    }
+
+    public function setPassword(?string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     public function getRoles(): array
