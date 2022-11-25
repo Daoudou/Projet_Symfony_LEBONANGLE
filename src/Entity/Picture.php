@@ -18,7 +18,7 @@ class Picture
     #[ORM\Column(length: 255)]
     private ?File $file = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 245)]
     private ?string $path = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
