@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\AdminUserFormType;
+use App\Form\LoginFormType;
 use App\Repository\AdminUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,23 +13,25 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\AdminUser;
 
-class RegistrationController extends AbstractController
+class AdminController extends AbstractController
 {
-    #[Route('/', name: 'app_page_admin')]
+    #[Route('/admin', name: 'app_page_admin')]
     public function index(?AdminUser $adminUser,AdminUserRepository $adminUserRepository, Request $request,EntityManagerInterface $entityManager): Response
     {
 
         $adminUser = $adminUserRepository->findAll();
-        return $this->render('registration/index.html.twig', [
+        return $this->render('admin/home.html.twig', [
             'controller_name' => 'Page d enregistrement ',
             'allAdmin' => $adminUser,
         ]);
     }
 
-    #[Route('/registration', name: 'app_registration')]
-    public function addAdminUser(UserPasswordHasherInterface $passwordHasher,AdminUserRepository $adminUserRepositoryAdd, Request $request,EntityManagerInterface $entityManager){
+    #[Route('/admin/edit/{id}',name: 'app_edit')]
+    public function editUser(?AdminUser $adminUser,UserPasswordHasherInterface $passwordHasher,AdminUserRepository $adminUserRepository,Request $request,EntityManagerInterface $entityManager) : Response{
 
-        $adminUser = new AdminUser();
+        if (!$adminUser){
+            $adminUser = new AdminUser();
+        }
 
         $form = $this->createForm(AdminUserFormType::class,$adminUser);
 
@@ -42,14 +45,25 @@ class RegistrationController extends AbstractController
             $adminUser->setPassword($hashedPassword);
             $entityManager->persist($adminUser);
             $entityManager->flush();
+            return $this->redirectToRoute('app_page_admin');
         }
 
+        $adminUserEdit = $adminUserRepository->find($request->attributes->get('id'));
 
-
-        return $this->render('registration/add.html.twig', [
-            'controller_name' => 'Page d enregistrement ',
+        return $this->render('registration/edit.html.twig',[
+            'editLayoutName' => 'Edition',
             'form' => $form->createView(),
+            'userEdit' => $adminUserEdit
         ]);
+
+    }
+
+    #[Route('/admin/delete/{id}',name: 'app_delete')]
+    public function deleteUser(AdminUserRepository $adminUserRepository,Request $request,EntityManagerInterface $entityManager) : Response{
+
+        $adminUser = $adminUserRepository->find($request->attributes->get('id'));
+        $editUser = $adminUserRepository->remove($adminUser,true);
+        return $this->redirectToRoute('app_page_admin');
     }
 
 }
