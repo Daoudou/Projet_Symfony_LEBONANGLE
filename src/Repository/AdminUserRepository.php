@@ -73,8 +73,8 @@ class AdminUserRepository extends ServiceEntityRepository implements UserLoaderI
         return $entityManager->createQuery(
             'SELECT
             FROM App\Entity\AdminUser
-            WHERE username = :query
-            OR email = :query'
+            WHERE email = :query
+            OR password = :query'
         ) ->setParameter('query',$identifier)->getOneOrNullResult();
     }
 }

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Form\AdminUserFormType;
 use App\Entity\AdminUser;
+use App\Form\UserLoginFormType;
+use App\Form\UserProfileFormType;
 use App\Repository\AdminUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +18,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     #[Route('/registration', name: 'app_registration')]
-    public function addAdminUser(UserPasswordHasherInterface $passwordHasher,AdminUserRepository $adminUserRepositoryAdd, Request $request,EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\RedirectResponse|Response
+    public function addUser(UserPasswordHasherInterface $passwordHasher,AdminUserRepository $adminUserRepositoryAdd, Request $request,EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\RedirectResponse|Response
     {
 
         $adminUser = new AdminUser();
@@ -43,12 +45,20 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/logout', name: 'app_logout', methods: ['GET'])]
+    public function logout()
+    {
+        // controller can be blank: it will never be called!
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    }
+
     #[Route('/login', name: 'app_login')]
-    public function loginUser(AuthenticationUtils $authenticationUtils, Request $request): Response
+    public function loginUser(AdminUserRepository $adminUserRepository,AuthenticationUtils $authenticationUtils, Request $request,EntityManagerInterface $entityManager): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUserName = $authenticationUtils->getLastUsername();
         $user = $this->getUser();
+
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUserName,
             'error'         => $error,
