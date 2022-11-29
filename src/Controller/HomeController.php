@@ -13,7 +13,7 @@ use App\Entity\Advert;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(?Advert $advert,AdvertRepository $advertRepository ): Response
+    public function index(AdvertRepository $advertRepository ): Response
     {
         $advertGeneral = $advertRepository->findAll();
         return $this->render('home/home.html.twig', [

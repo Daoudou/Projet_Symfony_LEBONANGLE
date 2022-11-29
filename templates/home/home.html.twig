@@ -11,14 +11,10 @@
 <div class="example-wrapper">
     <h1>{{ controller_name }}! ✅</h1>
     <a href="/login"><button>
-            Connexion
+            Connexion Administrateur
         </button></a>
-    <a href="/registration">
-        <button>
-            Inscription
-        </button>
-    </a>
 
+    <a href="/advert/add"><button>Ajouter une annonce</button></a>
     {# allAdvert #}
 
     <table border="1">
@@ -39,7 +35,7 @@
                 <td>{{ allAdvertShow.content }}</td>
                 <td>{{ allAdvertShow.author }}</td>
                 <td>{{ allAdvertShow.email }}</td>
-                <td>{{ allAdvertShow.category }}</td>
+                <td>{{ allAdvertShow.getCategory().getName() }}</td>
                 <td>{{ allAdvertShow.price }}</td>
                 <td>{{ allAdvertShow.state }}</td>
                 <td>{{ allAdvertShow.createdAt|date("m/d/y",false)}}</td>
@@ -47,6 +43,5 @@
             </tr>
         {% endfor %}
     </table>
-
 </div>
 {% endblock %}
