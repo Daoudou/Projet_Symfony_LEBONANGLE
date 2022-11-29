@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Form\AdminUserFormType;
 use App\Form\LoginFormType;
 use App\Repository\AdminUserRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,13 +18,16 @@ use App\Entity\AdminUser;
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_page_admin')]
-    public function index(?AdminUser $adminUser,AdminUserRepository $adminUserRepository, Request $request,EntityManagerInterface $entityManager): Response
+    public function index(?AdminUser $adminUser,?Category $category,AdminUserRepository $adminUserRepository,
+                          CategoryRepository $categoryRepository,Request $request,EntityManagerInterface $entityManager): Response
     {
 
         $adminUser = $adminUserRepository->findAll();
-        return $this->render('admin/home.html.twig', [
-            'controller_name' => 'Page d enregistrement ',
+        $category = $categoryRepository->findAll();
+        return $this->render('admin/index.html.twig', [
+            'controller_name' => 'Interface administrateur',
             'allAdmin' => $adminUser,
+            'allCategory' => $category,
         ]);
     }
 

@@ -9,25 +9,39 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
+        <h1>{{ controller_name }}! ✅</h1>
         <table border="1">
             <tr>
                 <th>Numero d'utilisateur</th>
                 <th>Utilisateur</th>
                 <th>Email</th>
-                <th>Mot de passe</th>
             </tr>
             {% for admin in allAdmin %}
                 <tr>
                     <td>{{ admin.Id }}</td>
                     <td>{{ admin.username }}</td>
                     <td>{{ admin.email }}</td>
-                    <td>{{ admin.plainpassword }}</td>
                     <td><a href="/admin/edit/{{ admin.id }}"><button>Modifier</button></a></td>
                     <td><a href="/admin/delete/{{ admin.id }}"><button>Supprimer</button></a></td>
                 </tr>
             {% endfor %}
-            <a href="/registration">Ajouter</a>
+            <a href="/registration"><button>Ajouter un utilisateur</button></a>
+        </table>
+        <br>
+        <br>
+        <table border="1">
+            <tr>
+                <th>Nom de la category</th>
+            </tr>
+            {% for category in allCategory %}
+                <tr>
+                    <td>{{ category.name }}</td>
+
+                    <td><a href="/category/edit/{{ category.id }}"><button>Modifier</button></a></td>
+                    <td><a href="/category/delete/{{ category.id }}"><button>Supprimer</button></a></td>
+                </tr>
+            {% endfor %}
+            <a href="/category/add"><button>Ajouter une categorie</button></a>
         </table>
     </div>
 {% endblock %}

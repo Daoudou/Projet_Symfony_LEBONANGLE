@@ -35,6 +35,9 @@ class Advert
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $price = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
@@ -126,6 +129,24 @@ class Advert
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param string|null $price
+     */
+    public function setPrice(?string $price): void
+    {
+        $this->price = $price;
+    }
+
+
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -179,4 +200,5 @@ class Advert
 
         return $this;
     }
+
 }
