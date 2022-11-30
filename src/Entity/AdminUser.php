@@ -17,7 +17,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['adminUser:list','adminUser:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
