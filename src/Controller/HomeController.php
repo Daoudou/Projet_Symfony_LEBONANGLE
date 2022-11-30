@@ -22,4 +22,13 @@ class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/show/advert/{id}', name: 'app_show_advert')]
+    public function showAdvert(AdvertRepository $advertRepository,Request $request) : Response{
+        
+        $advertShow = $advertRepository->find($request->attributes->get('id'));
+        return $this->render('home/show.html.twig',[
+            'showLayoutName' => 'Affichage',
+            'advert' => $advertShow,
+        ]);
+    }
 }

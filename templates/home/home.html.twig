@@ -41,6 +41,9 @@
                     <td>{{ allAdvertShow.state }}</td>
                     <td>{{ allAdvertShow.createdAt|date("m/d/y",false)}}</td>
                     <td>{{ allAdvertShow.publishedAt|date("m/d/y",false)}}</td>
+                    <td>
+                <a href="/show/advert/{{ allAdvertShow.getId() }}"><button>Afficher</button></a></td>
+        </tr>
                 </tr>
             {% endif %}
         {% endfor %}
