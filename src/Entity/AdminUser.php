@@ -2,30 +2,38 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AdminUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: AdminUserRepository::class)]
-
+#[ApiResource]
+#[ORM\HasLifecycleCallbacks]
 class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['adminUser:list','adminUser:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['adminUser:list','adminUser:item'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['adminUser:list','adminUser:item'])]
     private ?string $email = null;
 
     #[ORM\Column(length:255)]
+    #[Groups(['adminUser:list','adminUser:item'])]
     private ?string $plainpassword = null;
 
     #[ORM\Column(length:255)]
+    #[Groups(['adminUser:list','adminUser:item'])]
     private ?string $password = null;
 
     /**
