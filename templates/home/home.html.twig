@@ -30,18 +30,21 @@
             <th>Publie le</th>
         </tr>
         {% for allAdvertShow in allAdvert %}
-            <tr>
-                <td>{{ allAdvertShow.title }}</td>
-                <td>{{ allAdvertShow.content }}</td>
-                <td>{{ allAdvertShow.author }}</td>
-                <td>{{ allAdvertShow.email }}</td>
-                <td>{{ allAdvertShow.getCategory().getName() }}</td>
-                <td>{{ allAdvertShow.price }}</td>
-                <td>{{ allAdvertShow.state }}</td>
-                <td>{{ allAdvertShow.createdAt|date("m/d/y",false)}}</td>
-                <td>{{ allAdvertShow.publishedAt|date("m/d/y",false)}}</td>
-            </tr>
+            {% if allAdvertShow.state != 'rejected' and allAdvertShow.state != 'draft' %}
+                <tr>
+                    <td>{{ allAdvertShow.title }}</td>
+                    <td>{{ allAdvertShow.content }}</td>
+                    <td>{{ allAdvertShow.author }}</td>
+                    <td>{{ allAdvertShow.email }}</td>
+                    <td>{{ allAdvertShow.getCategory().getName() }}</td>
+                    <td>{{ allAdvertShow.price }}</td>
+                    <td>{{ allAdvertShow.state }}</td>
+                    <td>{{ allAdvertShow.createdAt|date("m/d/y",false)}}</td>
+                    <td>{{ allAdvertShow.publishedAt|date("m/d/y",false)}}</td>
+                </tr>
+            {% endif %}
         {% endfor %}
     </table>
+
 </div>
 {% endblock %}
