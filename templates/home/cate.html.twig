@@ -9,14 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>{{ controller_name }}! ✅</h1>
-    <a href="/login"><button>
-            Connexion Administrateur
-        </button></a>
-    <br>
-    <br>
-    <a href="/advert/add"><button>Ajouter une annonce</button></a>
-    {# allAdvert #}
+    <h1>{{ showLayoutName }}! ✅</h1>
     <table border="1">
         <tr>
             <th>Titre</th>
@@ -29,8 +22,8 @@
             <th>Creer le</th>
             <th>Publie le</th>
         </tr>
-        {% for allAdvertShow in allAdvert %}
-            {% if allAdvertShow.state != 'rejected' and allAdvertShow.state != 'draft' %}
+        {% for allAdvertShow in advertByCategory %}
+                {% if allAdvertShow.state != 'rejected' and allAdvertShow.state != 'draft' %}
                 <tr>
                     <td>{{ allAdvertShow.title }}</td>
                     <td>{{ allAdvertShow.content }}</td>
@@ -46,17 +39,8 @@
         </tr>
                 </tr>
             {% endif %}
-        {% endfor %}
-    </table>
-        <br>
-    <form action="{{ path('app_home') }}" method="post">
-        <select name="category">
-            <option value="">Choisissez une catégorie</option>
-            {% for advertCate in allCategory %}
-                <option value="{{advertCate.getId()}}">{{advertCate.getName()}}</option>
             {% endfor %}
-        </select>
-        <button type="submit">Trier</button>
-    </form>
+    </table>
+
 </div>
 {% endblock %}
