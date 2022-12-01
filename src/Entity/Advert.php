@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Doctrine\Odm\Filter\SearchFilter;
+
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter as FilterSearchFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiFilter;
@@ -13,8 +15,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdvertRepository::class)]
-#[ApiResource(order: ['price' => 'DESC']),
-  ApiFilter(FilterSearchFilter::class, properties: ['category' => 'exact'])]
+#[ApiResource(),
+  ApiFilter(FilterSearchFilter::class, properties: ['category' => 'exact' ]),
+  ApiFilter(OrderFilter::class,properties:['price']),
+  ApiFilter(RangeFilter::class,properties:['price'])
+  ]
 
 class Advert
 {
