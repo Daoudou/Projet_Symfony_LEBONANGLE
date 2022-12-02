@@ -3,7 +3,10 @@ vich_uploader:
     metadata:
         type: attribute
     mappings:
-        products:
-            uri_prefix: /media
-            upload_destination: '%kernel.project_dir%/public/media'
-            namer: Vich\UploaderBundle\Naming\OrignameNamer
+        advert_image:
+            # Voir le fichier /config/services.yaml pour l'emplacement du %advert_image%
+            uri_prefix: '%advert_image%'
+            upload_destination: 'C:\Users\daoud\OneDrive\Images\Vich'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_update: false
+            delete_on_remove: false

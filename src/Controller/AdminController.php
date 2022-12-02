@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\AdminUser;
+use App\Entity\Picture;
+use App\Repository\PictureRepository;
 use Symfony\Component\Workflow\Registry;
 
 class AdminController extends AbstractController
@@ -25,12 +27,15 @@ class AdminController extends AbstractController
     public function index(AdminUserRepository $adminUserRepository,
                           CategoryRepository $categoryRepository,
                           AdvertRepository $advertRepository,
+                          PictureRepository $pictureRepository,
                           Request $request,
                           EntityManagerInterface $entityManager): Response
     {
 
         $user = $this->getUser();
         $adminUser = $adminUserRepository->findAll();
+        
+        $picture = $pictureRepository->findAll();
 
         $category = $categoryRepository->findAll();
         $advert = $advertRepository->findAll();
@@ -39,6 +44,7 @@ class AdminController extends AbstractController
             'allAdmin' => $adminUser,
             'allCategory' => $category,
             'allAdvert' => $advert,
+            'picture' => $picture,
             'user' => $user,
         ]);
     }

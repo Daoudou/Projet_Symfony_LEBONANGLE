@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Picture;
+use DateTime;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,8 @@ final class PictureController extends AbstractController
 
         $picture = new Picture();
         $picture->setFile($uploadFile);
+        $picture->setPath("Ton Ordi debile");
+        $picture->setCreateAt(new DateTimeImmutable());
 
         return $picture;
     }
