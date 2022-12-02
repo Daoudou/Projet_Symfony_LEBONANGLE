@@ -12,14 +12,14 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 final class PictureController extends AbstractController
 {
     public function __invoke(Request $request): Picture{
-        $uploadFile = $request->file->get('file');
+        $uploadFile = $request->files->get('file');
         if(!$uploadFile){
             throw new BadRequestException('"file" is required');
         }
 
         $picture = new Picture();
-        $picture->file = $uploadFile;
+        $picture->setFile($uploadFile);
 
-        return $$picture;
+        return $picture;
     }
 }

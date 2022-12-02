@@ -8,6 +8,7 @@ use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter as FilterSearchFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\Post;
 use App\Controller\AdvertController;
 use App\Repository\AdvertRepository;
@@ -56,6 +57,8 @@ class Advert
     private ?\DateTimeInterface $publishedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'advert', targetEntity: Picture::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    #[ApiProperty(types: ['https://schema.org/image'])]
     private Collection $pictures;
 
     #[ORM\Column]

@@ -32,7 +32,6 @@ class HomeController extends AbstractController
         $advertGeneral = $advertRepository->findAll();
         $categoryGeneral = $categoryRepository->findAll();
         
-
         return $this->render('home/home.html.twig', [
             'controller_name' => 'LEBONANGLE',
             'allAdvert' => $advertGeneral,

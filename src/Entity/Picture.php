@@ -2,17 +2,53 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Get;
 use App\Controller\PictureController;
 use App\Repository\PictureRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    types                : ['https://schema.org/MediaObject'],
+    operations           : [
+        new Get(),
+        new Post(
+            controller        : PictureController::class,
+            openapiContext    : [
+                                    'requestBody' => [
+                                        'content' => [
+                                            'multipart/form-data' => [
+                                                'schema' => [
+                                                    'type'       => 'object',
+                                                    'properties' => [
+                                                        'file'   => [
+                                                            'type'   => 'string',
+                                                            'format' => 'binary'
+                                                        ],
+                                                        'advert' => [
+                                                            'type'   => 'int',
+                                                            'format' => 'int'
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ],
+            validationContext : ['groups' => ['Default', 'media_object_create']],
+            deserialize       : false
+        )
+    ],
+    normalizationContext : ['groups' => ['media_object:read']]
+)]
 class Picture
 {
     #[ORM\Id]
@@ -20,8 +56,13 @@ class Picture
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ApiProperty(types: ['https://schema.org/contentUrl'])]
+    #[Groups(['media_object:read'])]
+    public ?string $contentUrl = null;
+
     #[Vich\UploadableField(mapping: "media_object", 
                            fileNameProperty: "path")]
+    #[Assert\NotNull(groups: ['media_project'])]
     private ?File $file = null;
 
     #[ORM\Column(length: 255)]
@@ -43,7 +84,7 @@ class Picture
         return $this->file;
     }
 
-    public function setFile(string $file): self
+    public function setFile(File $file): self
     {
         $this->file = $file;
 
