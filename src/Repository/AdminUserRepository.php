@@ -67,7 +67,7 @@ class AdminUserRepository extends ServiceEntityRepository implements UserLoaderI
 //    }
     public function loadUserByIdentifier(string $identifier): ?AdminUser
     {
-        // TODO: Implement loadUserByIdentifier() method.
+       
         $entityManager = $this->getEntityManager();
 
         return $entityManager->createQuery(

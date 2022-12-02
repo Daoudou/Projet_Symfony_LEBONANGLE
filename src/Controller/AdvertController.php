@@ -23,13 +23,10 @@ class AdvertController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-
             $advert->setState('draft');
             $advert->setCreatedAt(new \DateTime());
-
             $entityManager->persist($advert);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_home');
         }
         return $this->render('advert/add.html.twig', [

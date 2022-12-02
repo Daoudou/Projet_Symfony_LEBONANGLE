@@ -8,6 +8,8 @@ use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter as FilterSearchFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\Post;
+use App\Controller\AdvertController;
 use App\Repository\AdvertRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,9 +17,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdvertRepository::class)]
-#[ApiResource(),
+#[ApiResource,
   ApiFilter(FilterSearchFilter::class, properties: ['category' => 'exact' ]),
-  ApiFilter(OrderFilter::class,properties:['price']),
+  ApiFilter(OrderFilter::class,properties:['publishedAt' , 'price']),
   ApiFilter(RangeFilter::class,properties:['price'])
   ]
 

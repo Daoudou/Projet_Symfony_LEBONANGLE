@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
+use App\Controller\PictureController;
 use App\Repository\PictureRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\File;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
 #[ApiResource]
@@ -17,6 +20,8 @@ class Picture
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Vich\UploadableField(mapping: "media_object", 
+                           fileNameProperty: "path")]
     private ?File $file = null;
 
     #[ORM\Column(length: 255)]

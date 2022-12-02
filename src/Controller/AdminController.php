@@ -29,7 +29,6 @@ class AdminController extends AbstractController
                           EntityManagerInterface $entityManager): Response
     {
 
-
         $user = $this->getUser();
         $adminUser = $adminUserRepository->findAll();
 

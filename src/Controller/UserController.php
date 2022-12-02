@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Form\AdminUserFormType;
 use App\Entity\AdminUser;
-use App\Form\UserLoginFormType;
-use App\Form\UserProfileFormType;
 use App\Repository\AdminUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +16,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     #[Route('/registration', name: 'app_registration')]
-    public function addUser(UserPasswordHasherInterface $passwordHasher,AdminUserRepository $adminUserRepositoryAdd, Request $request,EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\RedirectResponse|Response
+    public function addUser(UserPasswordHasherInterface $passwordHasher,
+    AdminUserRepository $adminUserRepositoryAdd, 
+    Request $request,EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\RedirectResponse|Response
     {
 
         $adminUser = new AdminUser();
@@ -27,7 +27,7 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            $plainPassword = $form->get('plainpassword');
+          //  $plainPassword = $form->get('plainpassword');
             $hashedPassword = $passwordHasher->hashPassword(
                 $adminUser,
                 $adminUser->getPlainPassword()
