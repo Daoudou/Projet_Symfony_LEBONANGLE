@@ -34,34 +34,7 @@ class AdvertController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    #[Route('/advert/edit/{id}', name: 'app_edit_advert')]
-    public function editCategory(?Advert $advert,AdvertRepository $advertRepository,
-                                 Request $request,EntityManagerInterface $entityManager): Response
-    {
-        if (!$advert){
-            $advert = new Advert();
-        }
-
-        $form = $this->createForm(AdvertFormType::class,$advert);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $entityManager->persist($advert);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_page_admin');
-        }
-
-        $editCategory = $advertRepository->find($request->attributes->get('id'));
-
-        return $this->render('category/edit.html.twig',[
-            'editLayoutName' => 'Edition de la categorie',
-            'form' => $form->createView(),
-            'categoryEdit' => $editCategory,
-        ]);
-
-    }
-
+    
     #[Route('/advert/delete/{id}', name: 'app_delete_advert')]
     public function deleteCategory(?Advert $advert,AdvertRepository $advertRepository,
                                    Request $request,EntityManagerInterface $entityManager): Response

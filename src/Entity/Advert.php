@@ -49,9 +49,6 @@ class Advert
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $price = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
@@ -60,6 +57,9 @@ class Advert
 
     #[ORM\OneToMany(mappedBy: 'advert', targetEntity: Picture::class)]
     private Collection $pictures;
+
+    #[ORM\Column]
+    private ?float $price = null;
 
     public function __construct()
     {
@@ -143,23 +143,6 @@ class Advert
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param string|null $price
-     */
-    public function setPrice(?string $price): void
-    {
-        $this->price = $price;
-    }
-
-
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -211,6 +194,18 @@ class Advert
                 $picture->setAdvert(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
