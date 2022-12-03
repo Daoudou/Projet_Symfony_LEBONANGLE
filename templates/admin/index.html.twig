@@ -31,6 +31,20 @@
         <br>
         <table border="1">
             <tr>
+                <th>Chemin du fichier</th>
+                <th>Creation du fichier</th>
+            </tr>
+            {% for allpicture in picture %}
+                <tr>
+                    {##}
+                    <td>{{ allpicture.getPath()}}</td>
+                    <td>{{ allpicture.getCreateAt()|date("m/d/y",false)}}</td>
+            {% endfor %}
+        </table>
+        <br>
+        <br>
+        <table border="1">
+            <tr>
                 <th>Nom de la category</th>
             </tr>
             {% for category in allCategory %}

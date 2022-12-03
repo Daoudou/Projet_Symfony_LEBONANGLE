@@ -34,11 +34,10 @@ class AdminController extends AbstractController
 
         $user = $this->getUser();
         $adminUser = $adminUserRepository->findAll();
-        
-        $picture = $pictureRepository->findAll();
-
         $category = $categoryRepository->findAll();
         $advert = $advertRepository->findAll();
+        $picture = $pictureRepository->findAll();
+
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'Interface administrateur',
             'allAdmin' => $adminUser,

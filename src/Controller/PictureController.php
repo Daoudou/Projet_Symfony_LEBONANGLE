@@ -9,11 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use App\Service\FileUploader;
 
 #[AsController]
 final class PictureController extends AbstractController
 {
-    public function __invoke(Request $request): Picture{
+    public function __invoke(Request $request,FileUploader $fileUploader): Picture{
         $uploadFile = $request->files->get('file');
         if(!$uploadFile){
             throw new BadRequestException('"file" is required');
@@ -21,9 +22,11 @@ final class PictureController extends AbstractController
 
         $picture = new Picture();
         $picture->setFile($uploadFile);
-        $picture->setPath("Ton Ordi debile");
+        $picture->setPath($uploadFile->getPath());
         $picture->setCreateAt(new DateTimeImmutable());
-
+        
+        //$picture->cover = $fileUploader->upload($uploadFile);
+        
         return $picture;
     }
 }
