@@ -25,7 +25,6 @@ final class PictureController extends AbstractController
         $picture->setPath($uploadFile->getPath());
         $picture->setCreateAt(new DateTimeImmutable());
         
-        //$picture->cover = $fileUploader->upload($uploadFile);
         
         return $picture;
     }

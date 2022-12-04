@@ -22,6 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     types                : ['https://schema.org/MediaObject'],
     operations           : [
         new GetCollection(),
+        new Get(),
         new Post(
             controller        : PictureController::class,
             openapiContext    : [
@@ -62,9 +63,9 @@ class Picture
 
     #[ApiProperty(types: ['https://schema.org/contentUrl'])]
     #[Groups(['media_object:read'])]
-    public ?string $contentUrl = 'C:\Users\daoud\OneDrive\Images\Vich';
+    public ?string $contentUrl = null;
 
-    #[Vich\UploadableField(mapping: "advertimage", 
+    #[Vich\UploadableField(mapping: "media_object", 
                            fileNameProperty: "path")]
     #[Assert\NotNull(groups: ['media_project'])]
     private ?File $file = null;
