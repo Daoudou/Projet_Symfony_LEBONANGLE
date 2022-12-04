@@ -61,14 +61,15 @@ class Picture
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ApiProperty(types: ['https://schema.org/contentUrl'])]
+    
     #[Groups(['media_object:read'])]
     public ?string $contentUrl = null;
 
     #[Vich\UploadableField(mapping: "media_object", 
                            fileNameProperty: "path")]
-    #[Assert\NotNull(groups: ['media_project'])]
+    #[Assert\NotNull(groups: ['media_object_create'])]
     private ?File $file = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $path = null;
