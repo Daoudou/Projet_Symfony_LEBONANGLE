@@ -13,6 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+#[Route("/admin")]
 class UserController extends AbstractController
 {
     #[Route('/registration', name: 'app_registration')]
@@ -58,7 +59,7 @@ class UserController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUserName = $authenticationUtils->getLastUsername();
         $user = $this->getUser();
-
+       
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUserName,
             'error'         => $error,

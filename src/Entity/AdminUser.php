@@ -10,7 +10,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: AdminUserRepository::class)]
-#[ApiResource]
 #[ORM\HasLifecycleCallbacks]
 class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 {

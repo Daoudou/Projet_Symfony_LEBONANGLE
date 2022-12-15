@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Classe\Mail;
 use App\Repository\AdvertRepository;
 use Symfony\Component\Workflow\Registry;
 
@@ -19,6 +20,18 @@ class AdvertWorkflow
             $workflow->apply($advert, 'publish');
             $workflow->getEnabledTransitions($advert);
             $advertRepository->save($advert, true);
+
+            $mail = new Mail();
+            $mail->send($advert->getEmail(), 
+            $advert->getAuthor(), 
+            'Annonce publiée', 
+            'Votre annonce : '.$advert->getTitle(), 
+            "Votre annonces est publier",
+            "Publier",
+            '',
+            "Merci de votre fideliter"
+                );
+            
         }
     }
 
@@ -34,6 +47,17 @@ class AdvertWorkflow
             $workflow->apply($advert, 'reject');
             $workflow->getEnabledTransitions($advert);
             $advertRepository->save($advert, true);
+
+            $mail = new Mail();
+            $mail->send($advert->getEmail(), 
+            $advert->getAuthor(), 
+            'Annonce rejetée', 
+            'Votre annonce : '.$advert->getTitle(), 
+            "Votre annonces n'a pas etait publier",
+            "",
+            'Rejeter',
+            "Merci de votre fideliter"
+                );
         }
     }
 }

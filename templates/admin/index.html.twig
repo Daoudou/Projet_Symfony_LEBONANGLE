@@ -19,13 +19,13 @@
                 <tr>
                     <td>{{ admin.username }}</td>
                     <td>{{ admin.email }}</td>
-                    <td><a href="/admin/edit/{{ admin.id }}"><button>Modifier</button></a></td>
+                    <td><a href="{{ path('app_edit',{ 'id': admin.id }) }}"><button>Modifier</button></a></td>
                         {% if user.email != admin.email %}
-                            <td><a href="/admin/delete/{{ admin.id }}"><button>Supprimer</button></a></td>
+                            <td><a href="{{ path('app_delete',{'id': admin.id }) }}"><button>Supprimer</button></a></td>
                         {% endif %}
                 </tr>
             {% endfor %}
-            <a href="/registration"><button>Ajouter un utilisateur</button></a>
+            <a href="{{ path('app_registration') }}"><button>Ajouter un utilisateur</button></a>
         </table>
         <br>
         <br>

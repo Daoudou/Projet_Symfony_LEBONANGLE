@@ -49,7 +49,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             validationContext : ['groups' => ['Default', 'media_object_create']],
             deserialize       : false
                             ),
-        new Delete()
     ],
     normalizationContext : ['groups' => ['media_object:read']]
 )]
