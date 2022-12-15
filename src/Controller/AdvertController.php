@@ -30,20 +30,20 @@ class AdvertController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_home');
         }
-       /* $confirmation_link = $this->renderView(
+        $confirmation_link = $this->renderView(
             'mail/mail.html.twig', ['advertID' => $advert->getID()]
         );
     
         $confirmation_linkReject = $this->renderView(
             'mail/rejected.html.twig', ['advertID' => $advert->getID()]
-        );*/
+        );
 
         $adminUser = $adminUserRepository->findAll();
         
         for ($i = 0; $i < count($adminUser); ++$i) {
 
-            $mail = new Mail();
-            $mail->send($adminUser[$i]->getEmail(), 
+            $mailAdmin = new Mail();
+            $mailAdmin->send($adminUser[$i]->getEmail(), 
             $advert->getAuthor(), 
             'Annonce Creer', 
             'Annonce : '.$advert->getTitle(), 
@@ -52,13 +52,8 @@ class AdvertController extends AbstractController
             '',
             "Veuillez la valider"
             );
-        return $this->render('advert/add.html.twig', [
-            'controller_name' => 'AdvertController',
-            'form' => $form->createView(),
-        ]);
-
         }
-
+      
         $mail = new Mail();
             $mail->send($advert->getEmail(), 
             $advert->getAuthor(), 
@@ -69,6 +64,11 @@ class AdvertController extends AbstractController
             '',
             "Merci de votre fideliter"
     );
+
+    return $this->render('advert/add.html.twig', [
+        'controller_name' => 'AdvertController',
+        'form' => $form->createView(),
+    ]);
 
     }
     
